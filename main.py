@@ -6,12 +6,15 @@ Dice Rolling Application
 from dice import Dice
 
 def roll():
+  dieInput = ""
   print("Roll a Dice!\n\
-  For more information on how to roll a dice, check out the help page.")
-  dieInput = input("Input: ")
-  splitInput = dieInput.split("d")
-  dice = Dice(int(splitInput[0]), int(splitInput[1]))
-  print(dice)
+For more information on how to roll a dice, check out the help page. To exit, enter q.")
+  while (dieInput != "q"):
+    dieInput = input("Input: ")
+    if (dieInput != "q"):
+      splitInput = dieInput.split("d")
+      dice = Dice(int(splitInput[0]), int(splitInput[1]))
+      print(dice)
 
 print("Dice Roller\n\
 Enter the number corresponding with what you would like to do\n\
@@ -21,7 +24,7 @@ Enter the number corresponding with what you would like to do\n\
 \t4: Quit")
 welcome = int(input("Input: "))
 
-while (welcome != 4):
+while (welcome != 4 and welcome != "q"):
   if (welcome == 1):
     roll()
   elif (welcome == 3):

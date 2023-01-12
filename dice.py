@@ -11,8 +11,16 @@ class Dice:
 
   def __str__(self):
     index = 0
-    if (self.die == 6):
-      while (index < self.numDie):
-        self.output.append(random.randrange(1, 7))
+    while (index < self.numDie):
+      rangeNum = self.die + 1
+      self.output.append(random.randrange(1, rangeNum))
+      index = index + 1
+    outputString = str(self.numDie) + "d" + str(self.die) + ": " + str(self.output)
+    if (len(self.output) > 1):
+      totalOutput = 0
+      index = 0
+      for roll in self.output:
+        totalOutput = totalOutput + self.output[index]
         index = index + 1
-    return str(self.output)
+      outputString = outputString + " Sum = " + str(totalOutput)
+    return outputString
