@@ -10,6 +10,17 @@ class Dice:
     Dice.roll_id = Dice.roll_id + 1
 
   def __str__(self):
+    outputString = str(self.numDie) + "d" + str(self.die) + ": " + str(self.output)
+    if (len(self.output) > 1):
+      totalOutput = 0
+      index = 0
+      for roll in self.output:
+        totalOutput = totalOutput + self.output[index]
+        index = index + 1
+      outputString = outputString + " Sum = " + str(totalOutput)
+    return outputString
+
+  def roll(self):
     index = 0
     while (index < self.numDie):
       rangeNum = self.die + 1
