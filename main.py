@@ -16,15 +16,15 @@ For more information on how to roll a dice, check out the help page. To exit, en
   while (dieInput != "q"): #unless quit:
     dieInput = input("Input: ") #input for user to specify die to roll
     if (dieInput != "q" and dieInput != ""): #unless quit:
-      splitInput = dieInput.split("d")
-      #split input into two usable numbers
-      dice = Dice(int(splitInput[0]), int(splitInput[1]))
-      #sets the dice to entered values
-      print("\t", dice.roll()) #rolls dice
-      rollArchive.append(str(datetime.datetime.now()) + ", " + str(dice)) #adds roll to the roll archive
-    else:
-      #if user enters invalid roll
-      print("Please enter a valid command.")
+      try: #when executing code, looks for errors
+        splitInput = dieInput.split("d")
+        #split input into two usable numbers
+        dice = Dice(int(splitInput[0]), int(splitInput[1]))
+        #sets the dice to entered values
+        print("\t", dice.roll()) #rolls dice
+        rollArchive.append(str(datetime.datetime.now()) + ", " + str(dice)) #adds roll to the roll archive
+      except: #if error, tells user
+        print("There was an error, please enter a valid command.")
   
 
 def rollHistory(): #defines function to check past rolls
@@ -36,7 +36,13 @@ def rollHistory(): #defines function to check past rolls
       print("\t" + str(index) + ": " + str(rollArchive[index]))
       #print roll
       index += 1 #update index
-    quitCheck = input("Enter q to go back: ") #allow user to go back to menu
+    try: #when code runs, checks for errors
+      quitCheck = input("Enter q to go back: ") #allow user to go back to menu
+      if (quitCheck != "q"): #if user doesn't enter q:
+        #tells user how to go back to menu
+        print("To go back to menu, enter q.")
+    except: #if error:
+      print("There was an error, please enter a valid response.")
 
 def viewHelp(): #defines function to display help info
   print("\nTo roll a dice, input the dice type. Dice types:\n\
@@ -62,12 +68,15 @@ Enter the number corresponding with what you would like to do\n\
 \t4: Quit") #menu
 choice = input("Input: ")
 #allows user to pick what they want to do
-if (choice == "q"):
-  #if user input "q" instead of 4, changes it
-  choice = 4
-else:
-  #changes choice variable to an integer instead of a string
-  choice = int(choice)
+try:
+  if (choice == "q"):
+    #if user input "q" instead of 4, changes it
+    choice = 4
+  else:
+    #changes choice variable to an integer instead of a string
+    choice = int(choice)
+except:
+  print("There was an error, please enter a valid response.")
 
 while (choice != 4): #unless quit:
   if (choice == 1):
@@ -88,7 +97,10 @@ Enter the number corresponding with what you would like to do\n\
 \t3: Help\n\
 \t4: Quit")
   choice = input("Input: ")
-  if (choice == "q"):
-    choice = 4
-  else:
-    choice = int(choice)
+  try:
+    if (choice == "q"):
+      choice = 4
+    else:
+      choice = int(choice)
+  except:
+    print("There was an error, please enter a valid response.")
