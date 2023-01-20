@@ -3,69 +3,43 @@ PLTW CSE 3.3.1 Final Project
 Max Gombos
 Dice Rolling Application
 """
-from dice import Dice
-import datetime
-import os
+from dice import Dice #imports Dice class
+import datetime #imports datetime (for logging when dice rolled)
+
 
 rollArchive = []
 
-def roll():
-  dieInput = ""
-  print("Roll a Dice!\n\
+def roll(): #defines function to roll a die
+  dieInput = "" #initialize dieInput variable
+  print("\nRoll a Dice!\n\
 For more information on how to roll a dice, check out the help page. To exit, enter q.")
-  while (dieInput != "q"):
-    dieInput = input("Input: ")
-    if (dieInput != "q" and dieInput != ""):
+  while (dieInput != "q"): #unless quit:
+    dieInput = input("Input: ") #input for user to specify die to roll
+    if (dieInput != "q" and dieInput != ""): #unless quit:
       splitInput = dieInput.split("d")
+      #split input into two usable numbers
       dice = Dice(int(splitInput[0]), int(splitInput[1]))
-      print(dice.roll())
-      rollArchive.append(str(datetime.datetime.now()) + ", " + str(dice))
+      #sets the dice to entered values
+      print("\t", dice.roll()) #rolls dice
+      rollArchive.append(str(datetime.datetime.now()) + ", " + str(dice)) #adds roll to the roll archive
     else:
-      print("Please enter a valid response. See help for more information.")
-  os.system('clear')
+      #if user enters invalid roll
+      print("Please enter a valid command.")
+  
 
-def rollHistory():
-  quitCheck = ""
-  while (quitCheck != "q"):
-    if (len(rollArchive) > 10):
-        index = 0
-        while (quitCheck != "q"):
-          os.system('clear')
-          print("Preivous rolls:")
-          counter = 0
-          page = index
-          while (counter < 10):
-            print("\t" + str(index) + ": " + rollArchive[index])
-            index = index + 1 
-            counter = counter + 1
-          print("(Showing rolls " + str(page) + " - " + str(index) + ")")
-          quitCheck = input("Enter > to move to next page. Enter q to go back to menu. ")
-    else:
-      print("Previous rolls (enter q to go back to menu):")
-      index = 0
-      for roll in rollArchive:
-        print("\t" + str(index) + ": " + rollArchive[index])
-        index = index + 1
-      quitCheck = input("")
+def rollHistory(): #defines function to check past rolls
+  quitCheck = "" #intitializes quit check variable
+  while (quitCheck != "q"): #unless quit:
+    print("\nPrevious rolls (enter q to go back to menu):")
+    index = 0 #initializes index
+    for roll in rollArchive: #for every roll in archvie
+      print("\t" + str(index) + ": " + str(rollArchive[index]))
+      #print roll
+      index += 1 #update index
+    quitCheck = input("Enter q to go back: ") #allow user to go back to menu
 
-print("Dice Roller\n\
-Enter the number corresponding with what you would like to do\n\
-\t1: Roll Dice\n\
-\t2: View Previous Rolls\n\
-\t3: Help\n\
-\t4: Quit")
-welcome = int(input("Input: "))
-
-while (welcome != 4):
-  if (welcome == 1):
-    os.system('clear')
-    roll()
-  elif (welcome == 2):
-    os.system('clear')
-    rollHistory()
-  elif (welcome == 3):
-    os.system('clear')
-    print("To roll a dice, input the dice type. Dice types:\n\
+def viewHelp(): #defines function to display help info
+  print("\nTo roll a dice, input the dice type. Dice types:\n\
 \t1d4: 4 Sided Die\n\
 \t1d6: 6 Sided Die\n\
 \t1d8: 8 Sided Die\n\
@@ -75,11 +49,46 @@ while (welcome != 4):
 \t1d20: 20 Sided Die\n\
 \t1d100: 100 Sided Die\n\
 To roll multiple dice at a time, change the number before the d to how many dice you wish to roll.")
-  
-  print("Dice Roller\n\
+  #info on how to format the inputs
+
+
+
+
+print("Dice Roller\n\
+Enter the number corresponding with what you would like to do\n\
+\t1: Roll Dice\n\
+\t2: View Previous Rolls\n\
+\t3: Help\n\
+\t4: Quit") #menu
+choice = input("Input: ")
+#allows user to pick what they want to do
+if (choice == "q"):
+  #if user input "q" instead of 4, changes it
+  choice = 4
+else:
+  #changes choice variable to an integer instead of a string
+  choice = int(choice)
+
+while (choice != 4): #unless quit:
+  if (choice == 1):
+    #lets the user roll dice
+    roll()
+  elif (choice == 2):
+    #lets the user view roll history
+    rollHistory()
+  elif (choice == 3):
+    #lets the user view help
+    viewHelp()
+
+  #allow user to use the menu again:
+  print("\nDice Roller\n\
 Enter the number corresponding with what you would like to do\n\
 \t1: Roll Dice\n\
 \t2: View Previous Rolls\n\
 \t3: Help\n\
 \t4: Quit")
-  welcome = int(input("Input: "))
+  choice = input("Input: ")
+  if (choice == "q"):
+    choice = 4
+  else:
+    choice = int(choice)
