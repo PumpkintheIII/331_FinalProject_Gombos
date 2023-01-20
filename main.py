@@ -68,14 +68,14 @@ Enter the number corresponding with what you would like to do\n\
 \t4: Quit") #menu
 choice = input("Input: ")
 #allows user to pick what they want to do
-try:
+try: #when code runs, checks for errors:
   if (choice == "q"):
     #if user input "q" instead of 4, changes it
     choice = 4
   else:
     #changes choice variable to an integer instead of a string
     choice = int(choice)
-except:
+except: #if there was an error:
   print("There was an error, please enter a valid response.")
 
 while (choice != 4): #unless quit:
@@ -97,10 +97,10 @@ Enter the number corresponding with what you would like to do\n\
 \t3: Help\n\
 \t4: Quit")
   choice = input("Input: ")
-  try:
+  try: #when code runs, check for errors:
     if (choice == "q"):
       choice = 4
     else:
       choice = int(choice)
-  except:
+  except: #if there was an error:
     print("There was an error, please enter a valid response.")
